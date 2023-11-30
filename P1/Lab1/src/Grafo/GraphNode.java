@@ -1,28 +1,37 @@
 package Grafo;
-import java.util.*;
 
 public class GraphNode {
-    int vertex;
+    int dest;
     int weight;
+    int source;
 
-    public int getVertex() {
-        return vertex;
+    public int getDest() {
+        return dest;
     }
 
     public int getWeight() {
         return weight;
     }
 
-    public void setVertex(int vertex) {
-        this.vertex = vertex;
+    public int getSource() {
+        return source;
+    }
+
+    public void setDest(int dest) {
+        this.dest = dest;
     }
 
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public GraphNode(int vertex, int weight) {
-        this.vertex = vertex;
+    public void setSource(int source) {
+        this.source = source;
+    }
+
+    public GraphNode(int source, int dest, int weight) {
+        this.source = source;
+        this.dest = dest;
         this.weight = weight;
     }
 }
