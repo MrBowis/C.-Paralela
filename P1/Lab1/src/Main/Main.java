@@ -34,46 +34,50 @@ public class Main {
                 new GraphNode(5, 6, 3));
 
         // Calcular distancias mínimas desde el nodo de inicio
-        //int[] distances = dijkstra(edges, startNode);
-
-        int[] distances = bellmanFord(numNodes, edges, startNode);
+        int[] distances1 = dijkstra(edges, startNode);
+        int[] distances2 = bellmanFord(numNodes, edges, startNode);
 
         // Imprimir las distancias mínimas
         System.out.println("Distancias mínimas desde el nodo " + startNode + ":");
         for (int i = 0; i < numNodes; i++) {
-            System.out.println("Nodo " + i + ": " + distances[i]);
+            System.out.println("Nodo " + i + ": " + distances1[i]);
+        }
+        
+        System.out.println("Distancias mínimas desde el nodo " + startNode + ":");
+        for (int i = 0; i < numNodes; i++) {
+            System.out.println("Nodo " + i + ": " + distances2[i]);
         }
     }
 
     // Implementación del algoritmo de Dijkstra
-    // public static int[] dijkstra(List<GraphNode> graph, int startNode) {
-    //     int numNodes = graph.size();
-    //     int[] distances = new int[numNodes];
-    //     Arrays.fill(distances, Integer.MAX_VALUE);
+    public static int[] dijkstra(List<GraphNode> graph, int startNode) {
+        int numNodes = graph.size();
+        int[] distances = new int[numNodes];
+        Arrays.fill(distances, Integer.MAX_VALUE);
 
-    //     PriorityQueue<GraphNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getWeight()));
-    //     priorityQueue.add(new GraphNode(startNode, startNode, 0));
-    //     distances[startNode] = 0;
+        PriorityQueue<GraphNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getWeight()));
+        priorityQueue.add(new GraphNode(startNode, startNode, 0));
+        distances[startNode] = 0;
 
-    //     while (!priorityQueue.isEmpty()) {
-    //         GraphNode currentNode = priorityQueue.poll();
+        while (!priorityQueue.isEmpty()) {
+            GraphNode currentNode = priorityQueue.poll();
 
-    //         for (GraphNode neighbor : graph) {
+            for (GraphNode neighbor : graph) {
             
-    //             if (neighbor.getSource() == currentNode.getDest()) {
-    //                 int newDistance = distances[currentNode.getDest()] + neighbor.getWeight();
+                if (neighbor.getSource() == currentNode.getDest()) {
+                    int newDistance = distances[currentNode.getDest()] + neighbor.getWeight();
 
-    //                 if (newDistance < distances[neighbor.getDest()]) {
-    //                     distances[neighbor.getDest()] = newDistance;
-    //                     priorityQueue.add(new GraphNode(startNode, neighbor.getDest(), newDistance));
-    //                 }
-    //             }
+                    if (newDistance < distances[neighbor.getDest()]) {
+                        distances[neighbor.getDest()] = newDistance;
+                        priorityQueue.add(new GraphNode(startNode, neighbor.getDest(), newDistance));
+                    }
+                }
 
-    //         }
-    //     }
+            }
+        }
 
-    //     return distances;
-    // }
+        return distances;
+    }
 
     public static int[] bellmanFord(int numNodes, List<GraphNode> edges, int startNode) {
         int[] distances = new int[numNodes];
