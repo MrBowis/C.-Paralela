@@ -1,4 +1,4 @@
-package Grafo;
+package Hilos;
 
 public class GraphNode {
     int dest;
