@@ -17,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int numNodes = 1000;
+        int numNodes = 100;
         int startNode = 0;
         int weightRange = 5;
         int src, dest, weight;
@@ -30,7 +30,7 @@ public class Main {
 
         for (int i = 0; i < numNodes; i++)
         {
-            src = rand.nextInt((int) (((float)numNodes) * 0.001F));
+            src = rand.nextInt((int) (((float)numNodes) * 0.1F));
             dest = rand.nextInt(numNodes);
             weight = rand.nextInt(weightRange);
 
