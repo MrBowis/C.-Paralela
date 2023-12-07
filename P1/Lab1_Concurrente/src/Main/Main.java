@@ -30,7 +30,7 @@ public class Main {
 
         for (int i = 0; i < numNodes; i++)
         {
-            src = rand.nextInt((int) (((float)numNodes) * 0.001F));
+            src = rand.nextInt((int) (((float)numNodes) * 0.1F));
             dest = rand.nextInt(numNodes);
             weight = rand.nextInt(weightRange);
 
