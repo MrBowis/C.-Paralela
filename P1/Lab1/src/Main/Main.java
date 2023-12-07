@@ -17,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int numNodes = 1000;
+        int numNodes = 100;
         int startNode = 0;
         int weightRange = 5;
         int src, dest, weight;
