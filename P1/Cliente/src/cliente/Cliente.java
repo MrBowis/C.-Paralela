@@ -51,6 +51,6 @@ public class Cliente {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Cliente cliente = new Cliente("localhost", 10000);
+        Cliente cliente = new Cliente("10.40.18.156", 10000);
     }
 }
