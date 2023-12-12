@@ -15,36 +15,62 @@ public class Servidor {
     public Servidor(int puerto) {
         try
         {
-            ServerSocket servidor = new ServerSocket(puerto);
             System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
+            ServerSocket servidor = new ServerSocket(puerto);
             int cont = 1;
-            ArrayList<String> productos = new ArrayList<>();
-            ArrayList<String> descuentos = new ArrayList<>();
-
-            productos.add("Papel");
-            productos.add("Tijeras");
-            productos.add("Goma");
-            productos.add("Lapiz");
-            productos.add("Borrador");
-
-            descuentos.add("Hoy tenemos un 15% de descuento");
-            descuentos.add("Hoy tenemos un 25% de descuento");
-            descuentos.add("Hoy tenemos un 35% de descuento");
-            descuentos.add("Hoy tenemos un 45% de descuento");
-            descuentos.add("Hoy tenemos un 60% de descuento");
-
-            Random rand = new Random();
-            boolean salir = false;
 
             for (;;)
             {
                 Socket cliente = servidor.accept();
+                new Thread(new ManejadorCliente(cliente, cont)).start();
+                cont++;
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public class ManejadorCliente implements Runnable {
+
+        private Socket cliente;
+        private int cont;
+        private ArrayList<String> productos;
+        private ArrayList<String> descuentos;
+        private Random rand;
+
+        public ManejadorCliente(Socket cliente, int cont) {
+            this.cliente = cliente;
+            this.cont = cont;
+            this.rand = new Random();
+            this.productos = new ArrayList<>();
+            this.descuentos = new ArrayList<>();
+
+            this.productos.add("Papel");
+            this.productos.add("Tijeras");
+            this.productos.add("Goma");
+            this.productos.add("Lapiz");
+            this.productos.add("Borrador");
+
+            this.descuentos.add("Hoy tenemos un 15% de descuento");
+            this.descuentos.add("Hoy tenemos un 25% de descuento");
+            this.descuentos.add("Hoy tenemos un 35% de descuento");
+            this.descuentos.add("Hoy tenemos un 45% de descuento");
+            this.descuentos.add("Hoy tenemos un 60% de descuento");
+        }
+
+        @Override
+        public void run() {
+            try
+            {
                 DataOutputStream salida = new DataOutputStream(cliente.getOutputStream());
                 DataInputStream entrada = new DataInputStream(cliente.getInputStream());
                 salida.writeUTF("Hola cliente " + cont);
+                System.out.println("Ha ingresado el cliente " + cont);
                 String texto = "";
 
-                while (!texto.equals("salir") && salir == false)
+                while (!texto.equals("salir"))
                 {
                     texto = entrada.readUTF();
 
@@ -64,25 +90,25 @@ public class Servidor {
                         }
                         case "salir":
                         {
-                            salir = true;
+                            entrada.close();
+                            salida.close();
+                            cliente.close();
                             break;
                         }
                         default:
                             salida.writeUTF("X_X");
                             break;
                     }
+                    this.cont++;
                 }
 
-                entrada.close();
-                salida.close();
-                cliente.close();
-                cont++;
+            } catch (IOException e)
+            {
+                e.printStackTrace();
             }
 
-        } catch (IOException e)
-        {
-
         }
+
     }
 
     public static void main(String[] args) {
