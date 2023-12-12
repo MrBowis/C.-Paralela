@@ -34,3 +34,9 @@ replay_pid*
 /P1/Cliente/build/
 /P1/Servidor/dist/
 /P1/Cliente/dist/
+<<<<<<< HEAD
+=======
+/P1/3-Servidor/build/
+/P1/3-Servidor/dist/
+/P1/3-Servidor/nbproject/private/
+>>>>>>> 14a571368d7e2f45c45bf56ed92891357d75fd33
