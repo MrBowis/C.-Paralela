@@ -56,16 +56,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbl1" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="24" max="32767" attributes="0"/>
-                          <Component id="jProgressBar1" min="-2" pref="508" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="lblPorcentageT" min="-2" pref="54" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="lbl1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="jProgressBar1" min="-2" pref="508" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblPorcentageT" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,12 +73,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbl1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jProgressBar1" max="32767" attributes="0"/>
-                      <Component id="lblPorcentageT" pref="28" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jProgressBar1" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="lblPorcentageT" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,7 +95,7 @@
         <Component class="javax.swing.JLabel" name="lblPorcentageT">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -117,21 +116,25 @@
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jProgressBarSprint1" pref="429" max="32767" attributes="0"/>
-                      <Component id="jProgressBarSprint2" max="32767" attributes="0"/>
-                      <Component id="jProgressBarSprint3" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint1" alignment="0" pref="432" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint3" alignment="0" max="32767" attributes="0"/>
                       <Component id="jProgressBarSprint4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jProgressBarSprint5" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint5" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblPorcentageS1" max="32767" attributes="0"/>
-                      <Component id="lblPorcentageS2" alignment="1" max="32767" attributes="0"/>
-                      <Component id="lblPorcentageS4" alignment="1" max="32767" attributes="0"/>
-                      <Component id="lblPorcentageS5" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblPorcentageS3" alignment="1" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblPorcentageS4" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblPorcentageS3" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblPorcentageS2" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblPorcentageS1" alignment="1" pref="60" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="lblPorcentageS5" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -157,31 +160,22 @@
                       <Component id="lblPorcentageS2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jProgressBarSprint3" max="32767" attributes="0"/>
-                          <Component id="lblSprint3" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="lblPorcentageS3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblSprint3" max="32767" attributes="0"/>
+                      <Component id="lblPorcentageS3" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint3" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblSprint4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jProgressBarSprint4" min="-2" pref="16" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblSprint5" max="32767" attributes="0"/>
-                              <Component id="jProgressBarSprint5" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lblPorcentageS4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblPorcentageS5" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblSprint4" max="32767" attributes="0"/>
+                      <Component id="lblPorcentageS4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint4" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblPorcentageS5" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblSprint5" max="32767" attributes="0"/>
+                      <Component id="jProgressBarSprint5" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
@@ -227,31 +221,31 @@
         <Component class="javax.swing.JLabel" name="lblPorcentageS1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPorcentageS2">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPorcentageS3">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPorcentageS4">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPorcentageS5">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="text" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -262,8 +256,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
-                  <Component id="btnView" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                  <Component id="btnStart" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="btnClear" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -272,19 +268,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="btnView" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnView">
+        <Component class="javax.swing.JButton" name="btnStart">
           <Properties>
             <Property name="text" type="java.lang.String" value="Start"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStartActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnClear">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clear"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
