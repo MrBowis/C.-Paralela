@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Main;
@@ -16,7 +16,19 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
     }
-
+    
+    public void advanceProgressBar(javax.swing.JProgressBar progressBar, int value) {
+        int current = progressBar.getValue();
+        int new_value = current + value;
+    
+        // Ensure the new value doesn't exceed the maximum value of the progress bar
+        if (new_value > progressBar.getMaximum()) {
+            new_value = progressBar.getMaximum();
+        }
+    
+        lblPorcentageT.setText("" + new_value);
+        progressBar.setValue(new_value);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,7 +188,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        btnView.setText("View");
+        btnView.setText("Start");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewActionPerformed(evt);
@@ -228,8 +240,9 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
+
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnViewActionPerformed
 
     /**
@@ -270,8 +283,10 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
+                
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -298,4 +313,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblSprint4;
     private javax.swing.JLabel lblSprint5;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
