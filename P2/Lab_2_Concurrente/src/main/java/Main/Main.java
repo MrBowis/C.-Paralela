@@ -22,6 +22,7 @@ public class Main extends javax.swing.JFrame {
 
     public void advanceProgressBar() {
         int numSprints = 1;
+        // int numSprints = 1;
         Semaphore semaforoSprints = new Semaphore(numSprints);
         Sprints sprint1 = new Sprints(1, semaforoSprints, "1", lblPorcentageS1, jProgressBarSprint1, lblPorcentageT, jProgressBar1);
         sprint1.start();
