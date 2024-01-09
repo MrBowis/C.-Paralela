@@ -35,10 +35,8 @@ public class Cliente {
                     salir = true;
                     break;
                 }
-                
                 System.out.println(entrada.readUTF());
-             
-                
+
             }
 
             System.out.println("Hasta la proxima ...");
@@ -54,10 +52,6 @@ public class Cliente {
     }
 
     public static void main(String[] args) throws InterruptedException {
-<<<<<<< HEAD
-        Cliente cliente = new Cliente("10.40.18.156", 10000);
-=======
-        Cliente cliente = new Cliente("10.40.17.8", 10000);
->>>>>>> d83cb20918d65ffabe4a9aa5dc3e185cc42ea6f8
+        Cliente cliente = new Cliente("localhost", 10001);
     }
 }
