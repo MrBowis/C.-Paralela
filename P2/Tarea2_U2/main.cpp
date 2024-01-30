@@ -9,10 +9,10 @@
 #include <cstdlib>
 #include <ctime>
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define BLUE    "\033[34m"
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define BLUE "\033[34m"
 
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
@@ -27,8 +27,8 @@ void gotoxy(int x, int y);
 int generarNumeroAleatorio(int min, int max);
 std::vector<int> generarArreglo(int n);
 int menu(const char *titulo, const char *opciones[], int n);
-int binarySearchRecursive(const std::vector<int>& arr, int target, int left, int right);
-void mostrarResultados(bool resultado);
+int busquedaBinariaR(const std::vector<int> &arr, int target, int left, int right);
+bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final);
 
 int main()
 {
@@ -38,16 +38,16 @@ int main()
     int resultado;
     int opcion;
 
-    int numeroElementos = 100, key = 42;
+    int numeroElementos = 1000000000, key;
     std::vector<int> A;
 
     struct timeval t0, t1;
     double tiempoP = 0;
 
     const char *titulo = "BUSQUEDA BINARIA";
-    const char *opciones[] = {"Busqueda Binaria (Secuencial)",
+    const char *opciones[] = {"Secuencial y Paralela",
+                              "Busqueda Binaria (Secuencial)",
                               "Busqueda Binaria (Paralela)",
-                              "Secuencial y Paralela",
                               "Salir"};
     int n = 4;
 
@@ -58,33 +58,48 @@ int main()
         switch (opcion)
         {
         case 1:
-            std::cout << "Ingrese el numero de elementos: ";
-            std::cin >> numeroElementos;
-            A = generarArreglo(numeroElementos);
             key = generarNumeroAleatorio(1, numeroElementos);
+            A = generarArreglo(numeroElementos);
+
+            std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
-            binarySearchRecursive(A, key, 0, A.size() - 1);
+            busquedaBinariaR(A, key, 0, A.size() - 1);
+            gettimeofday(&t1, 0);
+            tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
+            TR = tiempoP;
+            printf("Tiempo de ejecucion (Secuencial): %1.3f ..\n", TR * 1000000);
+
+            std::cout << "Numero a buscar: " << key << std::endl;
+            gettimeofday(&t0, 0);
+            std::cout << busquedaBinariaP(A, key, 0, A.size() - 1);
+            gettimeofday(&t1, 0);
+            tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
+            TP = tiempoP;
+            printf("Tiempo de ejecucion (paralelo): %1.3f ..\n", TP * 1000000);
+            
+            system("pause");
+            break;
+        case 2:
+            key = generarNumeroAleatorio(1, numeroElementos);
+
+            std::cout << "Numero a buscar: " << key << std::endl;
+            gettimeofday(&t0, 0);
+            busquedaBinariaR(A, key, 0, A.size() - 1);
             gettimeofday(&t1, 0);
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
             TR = tiempoP;
             printf("Tiempo de ejecucion (Secuencial): %1.3f ms\n", TR * 1000);
             system("pause");
             break;
-        case 2:
-            std::cout << "Ingrese el numero de elementos: ";
-            std::cin >> numeroElementos;
-            A = generarArreglo(numeroElementos);
+        case 3:
             key = generarNumeroAleatorio(1, numeroElementos);
+            std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
-            resultado = binarySearchRecursive(A, key, 0, A.size() - 1);
+            std::cout << busquedaBinariaP(A, key, 0, A.size() - 1);
             gettimeofday(&t1, 0);
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
             TP = tiempoP;
             printf("Tiempo de ejecucion (paralelo): %1.3f ms\n", TP * 1000);
-            system("pause");
-            break;
-        case 3:
-            std::cout << "Saliendo..." << std::endl;
             system("pause");
             break;
         case 4:
@@ -167,50 +182,47 @@ std::vector<int> generarArreglo(int n)
 int generarNumeroAleatorio(int min, int max)
 {
     srand(static_cast<unsigned>(time(0)));
-
     int num = rand() % (max - min + 1) + min;
-
     return num;
 }
 
-bool PBusquedaBinaria(int *A, int n, int key)
+bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final)
 {
-    int i, j, m;
-    bool encontrado = false;
-    int inicio = 0;
-    int fin = n - 1;
-    int mitad = (inicio + fin) / 2;
+    int hilos = 8;
+    omp_set_num_threads(hilos);
+    int encontrado;
+    int mid = (inicio + final) / 2;
 
-    #pragma omp parallel private(i, j, m) shared(encontrado, inicio, fin, mitad)
+#pragma omp parallel sections
     {
-        #pragma omp for
-        for (i = 0; i < n; i++)
+#pragma omp section
         {
-            if (A[i] == key)
-            {
-                encontrado = true;
-                #pragma omp critical
-                {
-                    std::cout << "Encontrado en la posicion: " << i << std::endl;
-                }
-            }
+            int respuesta = busquedaBinariaR(arr, target, mid + 1, mid);
+#pragma omp atomic
+            encontrado += respuesta;
+        }
+#pragma omp section
+        {
+            int respuesta = busquedaBinariaR(arr, target, mid, mid - 1);
+#pragma omp atomic
+            encontrado += respuesta;
         }
     }
     return encontrado;
 }
 
-int binarySearchRecursive(const std::vector<int>& arr, int target, int left, int right) {
-    if (left <= right) {
+int busquedaBinariaR(const std::vector<int> &arr, int target, int left, int right)
+{
+    if (left <= right)
+    {
         int mid = left + (right - left) / 2;
 
-        if (arr[mid] == target) {
+        if (arr[mid] == target)
             return mid;
-        } else if (arr[mid] < target) {
-            return binarySearchRecursive(arr, target, mid + 1, right);
-        } else {
-            return binarySearchRecursive(arr, target, left, mid - 1);
-        }
+        else if (arr[mid] < target)
+            return busquedaBinariaR(arr, target, mid + 1, right);
+        else
+            return busquedaBinariaR(arr, target, left, mid - 1);
     }
-
     return -1;
 }
