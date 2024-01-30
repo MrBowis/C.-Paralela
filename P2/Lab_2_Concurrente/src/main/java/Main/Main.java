@@ -54,8 +54,6 @@ public class Main extends javax.swing.JFrame {
         Sprints sprint5 = new Sprints(2, semaforoSprints, "5", lblPorcentageS5, jProgressBarSprint5, lblPorcentageT, jProgressBar1);
         sprint5.start();
         dormir();
-        
-        
     }
 
     public void dormir() {
