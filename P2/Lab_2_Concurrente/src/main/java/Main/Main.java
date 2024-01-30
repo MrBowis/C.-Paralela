@@ -101,6 +101,7 @@ public class Main extends javax.swing.JFrame {
         lblPorcentageS5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
