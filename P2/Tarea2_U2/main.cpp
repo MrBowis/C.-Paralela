@@ -8,6 +8,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 #define RESET "\033[0m"
 #define RED "\033[31m"
@@ -30,19 +31,64 @@ int menu(const char *titulo, const char *opciones[], int n);
 int busquedaBinariaR(const std::vector<int> &arr, int target, int left, int right);
 bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final);
 
+// Función auxiliar para realizar el intercambio de elementos en el arreglo
+void swap(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+// Función auxiliar para realizar la partición del arreglo en torno a un pivote
+int partition(std::vector<int> &arr, int low, int high)
+{
+    int pivot = arr[high]; // Tomar el último elemento como pivote
+    int i = (low - 1);     // Índice del menor elemento
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        // Si el elemento actual es menor o igual al pivote
+        if (arr[j] <= pivot)
+        {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+
+    // Colocar el pivote en su posición correcta
+    swap(arr[i + 1], arr[high]);
+    return (i + 1);
+}
+
+// Función principal de QuickSort
+void quickSort(std::vector<int> &arr, int low, int high)
+{
+    if (low < high)
+    {
+        // Encontrar el índice de partición
+        int pi = partition(arr, low, high);
+
+        // Ordenar los elementos antes y después de la partición
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
 int main()
 {
+    std::srand((std::time(0)));
     std::cout << HIDE_CURSOR;
 
     bool salir = false;
     int resultado;
     int opcion;
 
-    int numeroElementos = 1000000000, key;
-    std::vector<int> A;
+    int numeroElementos = 100000;
+    int key;
 
     struct timeval t0, t1;
     double tiempoP = 0;
+    double tiempoS = 0;
 
     const char *titulo = "BUSQUEDA BINARIA";
     const char *opciones[] = {"Secuencial y Paralela",
@@ -54,36 +100,41 @@ int main()
     while (!salir)
     {
         opcion = menu(titulo, opciones, n);
+        std::vector<int> A = generarArreglo(numeroElementos);
+        std::vector<int> B = A;
+        key = generarNumeroAleatorio(1, numeroElementos);
         system("cls");
         switch (opcion)
         {
         case 1:
-            key = generarNumeroAleatorio(1, numeroElementos);
-            A = generarArreglo(numeroElementos);
 
             std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
-            busquedaBinariaR(A, key, 0, A.size() - 1);
-            gettimeofday(&t1, 0);
-            tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
-            TR = tiempoP;
-            printf("Tiempo de ejecucion (Secuencial): %1.3f ..\n", TR * 1000000);
-
-            std::cout << "Numero a buscar: " << key << std::endl;
-            gettimeofday(&t0, 0);
-            std::cout << busquedaBinariaP(A, key, 0, A.size() - 1);
+            // std::sort(A.begin(), A.end());
+            quickSort(B, 0, B.size() - 1);
+            busquedaBinariaP(B, key, 0, B.size() - 1);
             gettimeofday(&t1, 0);
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
             TP = tiempoP;
-            printf("Tiempo de ejecucion (paralelo): %1.3f ..\n", TP * 1000000);
-            
-            system("pause");
-            break;
-        case 2:
-            key = generarNumeroAleatorio(1, numeroElementos);
+            printf("Tiempo de ejecucion (paralelo): %1.3f ms\n", TP * 1000);
 
             std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
+            // std::sort(A.begin(), A.end());
+            quickSort(A, 0, A.size() - 1);
+            busquedaBinariaR(A, key, 0, A.size() - 1);
+            gettimeofday(&t1, 0);
+            tiempoS = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
+            TR = tiempoS;
+            printf("Tiempo de ejecucion (Secuencial): %1.3f ms\n", TR * 1000);
+
+            system("pause");
+            break;
+        case 2:
+            std::cout << "Numero a buscar: " << key << std::endl;
+            gettimeofday(&t0, 0);
+            // std::sort(A.begin(), A.end());
+            quickSort(A, 0, A.size() - 1);
             busquedaBinariaR(A, key, 0, A.size() - 1);
             gettimeofday(&t1, 0);
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
@@ -92,9 +143,10 @@ int main()
             system("pause");
             break;
         case 3:
-            key = generarNumeroAleatorio(1, numeroElementos);
             std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
+            // std::sort(A.begin(), A.end());
+            quickSort(A, 0, A.size() - 1);
             std::cout << busquedaBinariaP(A, key, 0, A.size() - 1);
             gettimeofday(&t1, 0);
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
@@ -172,50 +224,51 @@ void gotoxy(int x, int y)
 std::vector<int> generarArreglo(int n)
 {
     std::vector<int> A;
+    int num;
     for (int i = 0; i < n; i++)
     {
-        A.push_back(i + 1);
+        num = generarNumeroAleatorio(1, n);
+        A.push_back(num);
     }
     return A;
 }
 
 int generarNumeroAleatorio(int min, int max)
 {
-    srand(static_cast<unsigned>(time(0)));
-    int num = rand() % (max - min + 1) + min;
-    return num;
+    return (std::rand() % max + min);
 }
 
 bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final)
 {
-    int hilos = 8;
+    int hilos = 4;
+    int idHilo = 0;
     omp_set_num_threads(hilos);
-    int encontrado;
-    int mid = (inicio + final) / 2;
+    int mid = final / 2;
+    int respuesta1, respuesta2, respuesta3, respuesta4;
 
-#pragma omp parallel sections
+#pragma omp parallel private(idHilo) num_threads(hilos)
     {
-#pragma omp section
-        {
-            int respuesta = busquedaBinariaR(arr, target, mid + 1, mid);
-#pragma omp atomic
-            encontrado += respuesta;
-        }
-#pragma omp section
-        {
-            int respuesta = busquedaBinariaR(arr, target, mid, mid - 1);
-#pragma omp atomic
-            encontrado += respuesta;
-        }
+        idHilo = omp_get_thread_num();
+        // std::cout << "Hilo: " << idHilo << std::endl;
+        if (idHilo == 0)
+            respuesta1 = busquedaBinariaR(arr, target, inicio, final / 4);
+        if (idHilo == 1)
+            respuesta2 = busquedaBinariaR(arr, target, final / 4, final / 2);
+        if (idHilo == 2)
+            respuesta3 = busquedaBinariaR(arr, target, final / 2, final * 3 / 4);
+        if (idHilo == 3)
+            respuesta4 = busquedaBinariaR(arr, target, final * 3 / 4, final);
     }
-    return encontrado;
+
+    return respuesta1 || respuesta2;
 }
 
 int busquedaBinariaR(const std::vector<int> &arr, int target, int left, int right)
 {
+    int mid;
     if (left <= right)
     {
-        int mid = left + (right - left) / 2;
+        mid = left + (right - left) / 2;
 
         if (arr[mid] == target)
             return mid;
