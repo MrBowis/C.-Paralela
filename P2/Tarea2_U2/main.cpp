@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <fstream>
 
 #define RESET "\033[0m"
 #define RED "\033[31m"
@@ -76,6 +77,11 @@ void quickSort(std::vector<int> &arr, int low, int high)
 
 int main()
 {
+    std::ofstream p;
+    p.open("p.txt");
+    std::ofstream s;
+    s.open("s.txt");
+
     std::srand((std::time(0)));
     std::cout << HIDE_CURSOR;
 
@@ -83,7 +89,7 @@ int main()
     int resultado;
     int opcion;
 
-    int numeroElementos = 100000;
+    int numeroElementos = 1000000;
     int key;
 
     struct timeval t0, t1;
@@ -117,6 +123,7 @@ int main()
             tiempoP = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
             TP = tiempoP;
             printf("Tiempo de ejecucion (paralelo): %1.3f ms\n", TP * 1000);
+            p << TP * 1000 << std::endl;
 
             std::cout << "Numero a buscar: " << key << std::endl;
             gettimeofday(&t0, 0);
@@ -127,6 +134,7 @@ int main()
             tiempoS = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) / 1000000.0f;
             TR = tiempoS;
             printf("Tiempo de ejecucion (Secuencial): %1.3f ms\n", TR * 1000);
+            s << TR * 1000 << std::endl;
 
             system("pause");
             break;
@@ -240,7 +248,7 @@ int generarNumeroAleatorio(int min, int max)
 
 bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final)
 {
-    int hilos = 4;
+    int hilos = 8;
     int idHilo = 0;
     omp_set_num_threads(hilos);
     int mid = final / 2;
@@ -250,13 +258,13 @@ bool busquedaBinariaP(std::vector<int> &arr, int target, int inicio, int final)
     {
         idHilo = omp_get_thread_num();
         // std::cout << "Hilo: " << idHilo << std::endl;
-        if (idHilo == 0)
+        if (idHilo >= 0 && idHilo < hilos / 4)
             respuesta1 = busquedaBinariaR(arr, target, inicio, final / 4);
-        if (idHilo == 1)
+        if (idHilo >= hilos / 4 && idHilo < hilos / 2)
             respuesta2 = busquedaBinariaR(arr, target, final / 4, final / 2);
-        if (idHilo == 2)
+        if (idHilo >= hilos / 2 && idHilo < hilos * 3 / 4)
             respuesta3 = busquedaBinariaR(arr, target, final / 2, final * 3 / 4);
-        if (idHilo == 3)
+        if (idHilo >= hilos * 3 / 4 && idHilo < hilos)
             respuesta4 = busquedaBinariaR(arr, target, final * 3 / 4, final);
     }
 
